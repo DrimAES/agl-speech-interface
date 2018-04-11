@@ -1,0 +1,12 @@
+**/*.log
+**/.vagrant
+
+build*
+package
+nbproject/private
+.stfolder
+.*.sw*
+*.tar.gz
+.vscode
+__*
+
