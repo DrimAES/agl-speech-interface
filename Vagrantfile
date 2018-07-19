@@ -13,10 +13,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
 
     export DISTRO="xUbuntu_16.04"
-    wget -O - http://download.opensuse.org/repositories/isv:/LinuxAutomotive:/app-Development/${DISTRO}/Release.key | sudo apt-key add -
-    
-    echo "deb http://download.opensuse.org/repositories/isv:/LinuxAutomotive:/app-Development/${DISTRO}/ ./" >> /etc/apt/sources.list.d/AGL.list
-    echo "deb http://download.opensuse.org/repositories/isv:/LinuxAutomotive:/app-Framework/${DISTRO}/ ./" >> /etc/apt/sources.list.d/AGL.list
+    export BRANCH="AGL_ElectricEel"
+    wget -O - http://download.opensuse.org/repositories/isv:/LinuxAutomotive:/${BRANCH}/${DISTRO}/Release.key | sudo apt-key add -
+    echo "deb http://download.opensuse.org/repositories/isv:/LinuxAutomotive:/${BRANCH}/${DISTRO}/ ./" >> /etc/apt/sources.list.d/AGL.list
+
 
     apt-get update
     apt-get install -y \
@@ -29,7 +29,6 @@ Vagrant.configure("2") do |config|
       libjson-c-dev \
       libsystemd-dev \
       agl-xds-agent \
-      agl-xds-exec \
       agl-app-framework-binder-bin \
       agl-app-framework-binder-dev
 
@@ -46,6 +45,6 @@ Vagrant.configure("2") do |config|
     cd libmicrohttpd-0.9.55
     ./configure && make && sudo make install
     cd ..
-
+    chmod +x /vagrant/conf.d/autobuild/linux/autobuild
   SHELL
 end
